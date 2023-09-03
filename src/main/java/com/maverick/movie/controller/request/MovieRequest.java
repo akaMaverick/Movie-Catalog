@@ -1,9 +1,6 @@
 package com.maverick.movie.controller.request;
 
 import com.maverick.movie.enums.Genre;
-import com.maverick.movie.enums.StreamAvailable;
-
-import java.util.List;
 
 public class MovieRequest {
     private String title;

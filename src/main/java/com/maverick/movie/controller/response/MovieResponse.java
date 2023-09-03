@@ -14,6 +14,9 @@ public class MovieResponse {
     private Genre genre;
     private List<StreamAvailable> streamAvailableList;
 
+    public MovieResponse() {
+    }
+
     public MovieResponse(String id, String title, String description, String director, Double rate, Genre genre, List<StreamAvailable> streamAvailableList) {
         this.id = id;
         this.title = title;

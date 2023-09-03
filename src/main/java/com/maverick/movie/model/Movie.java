@@ -3,9 +3,11 @@ package com.maverick.movie.model;
 import com.maverick.movie.enums.Genre;
 import com.maverick.movie.enums.StreamAvailable;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Document(collection="movie")
 public class Movie {
     @Id
     private String id;
@@ -15,6 +17,9 @@ public class Movie {
     private Double rate;
     private Genre genre;
     private List<StreamAvailable> streamAvailableList;
+
+    public Movie() {
+    }
 
     public Movie(String id, String title, String description, String director, Double rate, Genre genre, List<StreamAvailable> streamAvailableList) {
         this.id = id;
