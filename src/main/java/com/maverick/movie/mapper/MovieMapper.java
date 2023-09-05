@@ -22,6 +22,7 @@ public class MovieMapper {
         response.setDirector(model.getDirector());
         response.setRate(model.getRate());
         response.setGenre(model.getGenre());
+        response.setStreamAvailableList(model.getStreamAvailableList());
         return response;
     }
 }

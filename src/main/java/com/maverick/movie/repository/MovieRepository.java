@@ -11,5 +11,7 @@ import java.util.List;
 public interface MovieRepository extends MongoRepository<Movie, String> {
 
     @Query("{'title': {$regex: ?0, $options:  'i'}}")
-    public List<Movie> findByTitle(String title);
+    public List<Movie> findMoviesByTitle(String title);
+
+    public Movie findByTitle(String title);
 }

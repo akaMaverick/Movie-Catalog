@@ -2,6 +2,7 @@ package com.maverick.movie.service;
 
 import com.maverick.movie.controller.request.MovieRequest;
 import com.maverick.movie.controller.response.MovieResponse;
+import com.maverick.movie.enums.StreamAvailable;
 import com.maverick.movie.mapper.MovieMapper;
 import com.maverick.movie.model.Movie;
 import com.maverick.movie.repository.MovieRepository;
@@ -19,7 +20,7 @@ public class MovieService {
     }
 
     public List<MovieResponse> searchMoviesByTitle(String title) {
-        List<Movie> movie = movieRepository.findByTitle(title);
+        List<Movie> movie = movieRepository.findMoviesByTitle(title);
         return movie.stream().map(movie1 -> MovieMapper.modelToResponse(movie1))
                 .collect(Collectors.toList());
 
@@ -27,6 +28,19 @@ public class MovieService {
 
     public MovieResponse addMovie(MovieRequest request) {
         Movie movie = MovieMapper.requestToModel(request);
+        movieRepository.save(movie);
+        return MovieMapper.modelToResponse(movie);
+    }
+
+    public MovieResponse updateStreamAvailability(String title, String stream){
+        Movie movie = movieRepository.findByTitle(title);
+
+        if(!stream.isEmpty()) {
+            List<StreamAvailable> streamsList = movie.getStreamAvailableList();
+            streamsList.add(StreamAvailable.valueOf(stream));
+            List<StreamAvailable> streamUpdated = streamsList.stream().distinct().collect(Collectors.toList());
+            movie.setStreamAvailableList(streamUpdated);
+        }
         movieRepository.save(movie);
         return MovieMapper.modelToResponse(movie);
     }
