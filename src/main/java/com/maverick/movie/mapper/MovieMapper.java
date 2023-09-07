@@ -17,6 +17,7 @@ public class MovieMapper {
 
     public static MovieResponse modelToResponse(Movie model) {
         MovieResponse response = new MovieResponse();
+        response.setId(model.getId());
         response.setTitle(model.getTitle());
         response.setDescription(model.getDescription());
         response.setDirector(model.getDirector());

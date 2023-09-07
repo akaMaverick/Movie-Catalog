@@ -8,6 +8,7 @@ import com.maverick.movie.model.Movie;
 import com.maverick.movie.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,8 @@ public class MovieService {
         Movie movie = movieRepository.findByTitle(title);
 
         if(!stream.isEmpty()) {
-            List<StreamAvailable> streamsList = movie.getStreamAvailableList();
+            List<StreamAvailable> streamsList = movie.getStreamAvailableList() != null
+                    ? movie.getStreamAvailableList() : new ArrayList<>();
             streamsList.add(StreamAvailable.valueOf(stream));
             List<StreamAvailable> streamUpdated = streamsList.stream().distinct().collect(Collectors.toList());
             movie.setStreamAvailableList(streamUpdated);
