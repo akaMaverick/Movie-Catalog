@@ -9,6 +9,9 @@ public class MovieRequest {
     private Double rate;
     private Genre genre;
 
+    public MovieRequest() {
+    }
+
     public MovieRequest(String title, String description, String director, Double rate, Genre genre) {
         this.title = title;
         this.description = description;
