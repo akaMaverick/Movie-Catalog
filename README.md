@@ -38,7 +38,7 @@ attributes: title, description, director, rate and genre.</p>
 <p>updateStreamAvailability() is a method to update the list of streams available 
 to a certain movie, then the user will give the title of the movie and the stream available.</p>
 <br>
-<p>User writes title and stream that it wants to insert it: </p>
+<p>User enters a title and indicates the stream into which they want to insert it: </p>
 <img src="ReadMePhotos/PutUserExample.png" width="80%">
 <br>
 <p>Then return the following response: </p>
