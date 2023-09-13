@@ -13,4 +13,14 @@ public class MovieRequestStub {
         request.setRate(8.5);
         return request;
     }
+
+    public static MovieRequest createStubServiceTest() {
+        MovieRequest request = new MovieRequest();
+        request.setTitle("Long dream");
+        request.setDescription("It's about a long dream.");
+        request.setDirector("Marlon Maverick");
+        request.setGenre(Genre.DRAMA);
+        request.setRate(8.5);
+        return request;
+    }
 }
