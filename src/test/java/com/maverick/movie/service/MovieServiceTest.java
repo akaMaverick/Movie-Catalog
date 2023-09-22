@@ -2,6 +2,7 @@ package com.maverick.movie.service;
 
 import com.maverick.movie.controller.response.MovieResponse;
 import com.maverick.movie.enums.Genre;
+import com.maverick.movie.enums.StreamAvailable;
 import com.maverick.movie.model.Movie;
 import com.maverick.movie.repository.MovieRepository;
 import com.maverick.movie.stub.MovieRequestStub;
@@ -10,28 +11,23 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.tuple;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class MovieServiceTest {
 
-    @InjectMocks
     private MovieService movieService;
 
-    @Mock
     private MovieRepository movieRepository;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
+        this.movieRepository = mock(MovieRepository.class);
+        this.movieService = new MovieService(movieRepository);
     }
 
 
@@ -69,5 +65,25 @@ public class MovieServiceTest {
                 .hasFieldOrPropertyWithValue("description", "It's about a long dream.")
                 .hasFieldOrPropertyWithValue("rate", 8.5)
                 .hasFieldOrPropertyWithValue("director", "Marlon Maverick");
+    }
+
+    @Test
+    @DisplayName("Test an update of a stream.")
+    void whenMovieService_invokeUpdateStreamAvailability_updateNullListSuccessfully() {
+        Movie movie = MovieStub.createStub();
+        movie.setStreamAvailableList(null);
+
+        when(movieRepository.findByTitle(Mockito.anyString())).thenReturn(movie);
+
+        MovieResponse response = movieService.updateStreamAvailability("Long dream", "HULU");
+
+        Assertions.assertThat(response)
+                .isNotNull()
+                .hasFieldOrPropertyWithValue("title", "Long dream")
+                .extracting("streamAvailableList")
+                .asList()
+                .contains(StreamAvailable.HULU);
+
+        verify(movieRepository, atMostOnce()).findByTitle(Mockito.anyString());
     }
 }
